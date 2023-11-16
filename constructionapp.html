@@ -1,3 +1,12 @@
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QVPXN2JFJP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QVPXN2JFJP');
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,10 +83,9 @@
         footer {
             text-align: center;
             padding: 1rem 0;
-            background-color: #333;
-            color: white;
+            background-color: #f4f4f4;
+            color: rgb(0, 0, 0);
         }
-
         @media screen and (max-width: 600px) {
             header, footer {
                 padding: 0.5rem 0;
@@ -142,12 +150,14 @@
 
             document.getElementById('fraction-result').innerText = 'Fraction: ' + h1 + '/' + k1;
         }
+
     </script>
 </body>
 </html>
+
         <!-- Stopwatch Section -->
         <section id="stopwatch">
-            <h2>Job Timer</h2>
+            <h2>Task Timer</h2>
             <input type="text" id="timer-title" placeholder="Enter Task Name">
             <button type="button" onclick="startTimer()">Start Task</button>
             <button type="button" onclick="stopTimer()">End Task</button>
@@ -169,6 +179,7 @@
 
     <footer>
         <p>Woodward Technology Systems © 2023</p>
+        <a href="mailto:zach@woodwardsystems.net?subject=Feedback">Send Feedback to the Developer</a>
     </footer>
 
     <script>
@@ -215,6 +226,26 @@
             titleCell.innerText = title;
             timeCell.innerText = time;
         }
+        function addRecordToMongoDB() {
+        const taskName = document.getElementById('timer-title').value || 'Untitled';
+        const duration = document.getElementById('timer-display').innerText;
+
+        fetch('/add-task', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ taskName, duration }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+ 
     </script>
 </body>
 </html>
